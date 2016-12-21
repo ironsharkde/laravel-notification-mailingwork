@@ -1,10 +1,4 @@
-Use this repo as a skeleton for your new channel, once you're done please submit a Pull Request on [this repo](https://github.com/laravel-notification-channels/new-channels) with all the files.
-
-Here's the latest documentation on Laravel 5.3 Notifications System: 
-
-https://laravel.com/docs/master/notifications
-
-# A Boilerplate repo for contributions
+# Mailingwork Notifications Channel for Laravel 5.3 [WIP]
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/mailingwork.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/mailingwork)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
