@@ -38,8 +38,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAILINGWORK_FROM_ADDRESS'),
-        'name' => env('MAILINGWORK_FROM_NAME')
+        'address' => env('MAILINGWORK_FROM_ADDRESS', config('mail.from.address')),
+        'name' => env('MAILINGWORK_FROM_NAME', config('mail.from.name'))
     ],
 
 ];
