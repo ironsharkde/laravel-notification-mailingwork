@@ -1,19 +1,6 @@
-Use this repo as a skeleton for your new channel, once you're done please submit a Pull Request on [this repo](https://github.com/laravel-notification-channels/new-channels) with all the files.
+# Mailingwork Notifications Channel for Laravel 5.3 [WIP]
 
-Here's the latest documentation on Laravel 5.3 Notifications System: 
-
-https://laravel.com/docs/master/notifications
-
-# A Boilerplate repo for contributions
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/mailingwork.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/mailingwork)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/mailingwork/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/mailingwork)
-[![StyleCI](https://styleci.io/repos/:style_ci_id/shield)](https://styleci.io/repos/:style_ci_id)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/:sensio_labs_id.svg?style=flat-square)](https://insight.sensiolabs.com/projects/:sensio_labs_id)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/mailingwork.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/mailingwork)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/mailingwork/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/mailingwork/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/mailingwork.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/mailingwork)
 
 This package makes it easy to send notifications using [Mailingwork](link to service) with Laravel 5.3.
 
@@ -66,8 +53,6 @@ You must install the service provider:
 ```
 
 ### Setting up the Mailingwork service
-
-Optionally include a few steps how users can set up the service.
 
 You will need to a mailingworks account in order to use this channel. Place place your credentails and configs inside your `.env` file, create addition `config/mailingwork.php` file:
 
