@@ -38,8 +38,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAILINGWORK_FROM_ADDRESS', 'webmaster@kampagnen-dialog.de'),
-        'name' => env('MAILINGWORK_FROM_NAME', 'Kampagnen-Cockpit')
+        'address' => env('MAILINGWORK_FROM_ADDRESS'),
+        'name' => env('MAILINGWORK_FROM_NAME')
     ],
 
 ];
