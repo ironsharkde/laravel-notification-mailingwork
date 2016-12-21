@@ -1,13 +1,13 @@
 {
-    "name": "laravel-notification-channels/:package_name",
-    "description": ":package_description",
-    "homepage": "https://github.com/laravel-notification-channels/:package_name",
+    "name": "laravel-notification-channels/mailingwork",
+    "description": "mailingwork Notifications Channel for Laravel 5.3",
+    "homepage": "https://github.com/laravel-notification-channels/mailingwork",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Anton Pauli",
+            "email": "pauli@ironshark.de",
+            "homepage": "https://github.com/TUNER88",
             "role": "Developer"
         }
     ],
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\": "src"
+            "NotificationChannels\\Mailingwork\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\Test\\": "tests"
+            "NotificationChannels\\Mailingwork\\Test\\": "tests"
         }
     },
     "scripts": {

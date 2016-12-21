@@ -1,13 +1,13 @@
 <?php
 
-namespace NotificationChannels\:channel_namespace;
+namespace NotificationChannels\Mailingwork;
 
-use NotificationChannels\:channel_namespace\Exceptions\CouldNotSendNotification;
-use NotificationChannels\:channel_namespace\Events\MessageWasSent;
-use NotificationChannels\:channel_namespace\Events\SendingMessage;
+use NotificationChannels\Mailingwork\Exceptions\CouldNotSendNotification;
+use NotificationChannels\Mailingwork\Events\MessageWasSent;
+use NotificationChannels\Mailingwork\Events\SendingMessage;
 use Illuminate\Notifications\Notification;
 
-class :service_nameChannel
+class MailingworkChannel
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class :service_nameChannel
      * @param mixed $notifiable
      * @param \Illuminate\Notifications\Notification $notification
      *
-     * @throws \NotificationChannels\:channel_namespace\Exceptions\CouldNotSendNotification
+     * @throws \NotificationChannels\Mailingwork\Exceptions\CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
     {
