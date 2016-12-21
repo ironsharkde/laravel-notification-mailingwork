@@ -12,9 +12,7 @@ class MailingworkServiceProvider extends ServiceProvider
     public function boot()
     {
         // Bootstrap code here.
-        $this->publishes([
-            __DIR__ . '/../resources/config/mailingwork.php' => config_path('mailingwork.php'),
-        ]);
+        $this->mergeConfigFrom(__DIR__ . '/../resources/config/mailingwork.php', 'mailingwork');
 
         /**
          * Here's some example code we use for the pusher package.
