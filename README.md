@@ -48,10 +48,21 @@ Add following repository to your `composer.json` file.
 ],
 ```
 
-Install package useing composer
+Now you can install the package via composer:
 
 ```sh
 composer require laravel-notification-channels/mailingwork dev-master
+```
+
+
+You must install the service provider:
+
+```php
+// config/app.php
+'providers' => [
+    ...
+    NotificationChannels\Mailingwork\MailingworkServiceProvider::class,
+],
 ```
 
 ### Setting up the Mailingwork service
