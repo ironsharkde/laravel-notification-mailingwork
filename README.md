@@ -17,11 +17,7 @@ https://laravel.com/docs/master/notifications
 
 This package makes it easy to send notifications using [Mailingwork](link to service) with Laravel 5.3.
 
-**Note:** Replace ```Mailingwork``` ```Mailingwork``` ```Anton Pauli``` ```TUNER88``` ```https://github.com/TUNER88``` ```pauli@ironshark.de``` ```mailingwork``` ```mailingwork Notifications Channel for Laravel 5.3``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
-**Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
-
 This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
-
 
 
 ## Contents
@@ -40,7 +36,23 @@ This is where your description should go. Add a little code example so build can
 
 ## Installation
 
-Please also include the steps for any third-party service setup that's required for this package.
+Since the package is under development and not published in official laravel-notification-channels repository, you need to define custom repository to install it from current repository.
+Add following repository to your `composer.json` file.
+
+```json
+"repositories": [
+	{
+		"type": "vcs",
+		"url": "git@github.com:ironsharkde/laravel-notification-mailingwork.git"
+	}
+],
+```
+
+Install package useing composer
+
+```sh
+composer require laravel-notification-channels/mailingwork dev-master
+```
 
 ### Setting up the Mailingwork service
 
