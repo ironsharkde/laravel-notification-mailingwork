@@ -2,16 +2,26 @@
 
 namespace NotificationChannels\Mailingwork;
 
+use Illuminate\Notifications\Notification;
 use NotificationChannels\Mailingwork\Exceptions\CouldNotSendNotification;
 use NotificationChannels\Mailingwork\Events\MessageWasSent;
 use NotificationChannels\Mailingwork\Events\SendingMessage;
-use Illuminate\Notifications\Notification;
 
 class MailingworkChannel
 {
-    public function __construct()
+    /**
+     * @var Mailingwork
+     */
+    protected $mailingwork;
+
+    /**
+     * Channel constructor.
+     *
+     * @param Mailingwork $mailingwork
+     */
+    public function __construct(Mailingwork $mailingwork)
     {
-        // Initialisation code here
+        $this->mailingwork = $mailingwork;
     }
 
     /**
@@ -24,10 +34,7 @@ class MailingworkChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        //$response = [a call to the api of your notification send]
-
-//        if ($response->error) { // replace this by the code need to check for errors
-//            throw CouldNotSendNotification::serviceRespondedWithAnError($response);
-//        }
+        $message = $notification->toMailingwork($notifiable);
+        $this->mailingwork->sendMessage($message);
     }
 }

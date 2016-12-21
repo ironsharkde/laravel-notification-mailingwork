@@ -4,8 +4,45 @@ namespace NotificationChannels\Mailingwork\Exceptions;
 
 class CouldNotSendNotification extends \Exception
 {
-    public static function serviceRespondedWithAnError($response)
+    /**
+     * Thrown when there's a bad request and an error is responded.
+     *
+     * @param ClientException $exception
+     *
+     * @return static
+     */
+    public static function mailingworkRespondedWithAnError(ClientException $exception)
     {
-        return new static("Descriptive error message.");
+        $statusCode = $exception->getResponse()->getStatusCode();
+
+        $description = 'no description given';
+
+        if ($result = json_decode($exception->getResponse()->getBody())) {
+            $description = $result->description ?: $description;
+        }
+
+        return new static("Mailingwork responded with an error `{$statusCode} - {$description}`");
+    }
+
+    /**
+     * Thrown when credentials are missing.
+     *
+     * @param string $message
+     *
+     * @return static
+     */
+    public static function credentialsNotProvided($message)
+    {
+        return new static($message);
+    }
+
+    /**
+     * Thrown when we're unable to communicate with Mailingwork.
+     *
+     * @return static
+     */
+    public static function couldNotCommunicateWithMailingwork()
+    {
+        return new static('The communication with Mailingwork failed.');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\Mailingwork;
 
+use GuzzleHttp\Client as HttpClient;
 use Illuminate\Support\ServiceProvider;
 
 class MailingworkServiceProvider extends ServiceProvider
@@ -11,25 +12,14 @@ class MailingworkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Bootstrap code here.
+        // load configs
         $this->mergeConfigFrom(__DIR__ . '/../resources/config/mailingwork.php', 'mailingwork');
 
-        /**
-         * Here's some example code we use for the pusher package.
-
-        $this->app->when(Channel::class)
-            ->needs(Pusher::class)
+        $this->app->when(MailingworkChannel::class)
+            ->needs(Mailingwork::class)
             ->give(function () {
-                $pusherConfig = config('broadcasting.connections.pusher');
-
-                return new Pusher(
-                    $pusherConfig['key'],
-                    $pusherConfig['secret'],
-                    $pusherConfig['app_id']
-                );
+                return new Mailingwork(config('mailingwork'), new HttpClient());
             });
-         */
-
     }
 
     /**
