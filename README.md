@@ -54,7 +54,7 @@ You must install the service provider:
 
 ### Setting up the Mailingwork service
 
-You will need to a mailingworks account in order to use this channel.
+You will need a mailingworks account in order to use this channel.
 Place your credentails and configs inside your `.env` file, 
 or create custom `config/mailingwork.php` file based on [this file](resources/config/mailingwork.php):
 

@@ -37,6 +37,16 @@ class CouldNotSendNotification extends \Exception
     }
 
     /**
+     * Thrown when recipient is missing.
+     *
+     * @return static
+     */
+    public static function recipientNotProvided()
+    {
+        return new static('No recipient provided');
+    }
+
+    /**
      * Thrown when credentials are missing.
      *
      * @param string $message

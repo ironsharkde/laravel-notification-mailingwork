@@ -80,36 +80,69 @@ class Mailingwork
         return $this->http ?: $this->http = new HttpClient();
     }
 
-
+    /**
+     * Create and send email
+     *
+     * @param MailingworkMessage $message
+     * @return bool
+     * @throws CouldNotSendNotification
+     */
     public function sendMessage(MailingworkMessage $message)
     {
+        // throw error if no recipient provided
+        if(!$message->to)
+            throw CouldNotSendNotification::recipientNotProvided();
+
         $id = $this->createEmail($message);
         $this->activateEmail($id);
-        return $this->sendRequest('sendMessage', $params);
+        return $this->sendEmail($id, $message->to);
     }
 
+    /**
+     * Create new email using mailingwork API
+     *
+     * @param MailingworkMessage $message
+     * @return mixed
+     */
     private function createEmail(MailingworkMessage $message){
         $response = $this->sendRequest('createemail', [
             'subject' => $this->buildSubject($message),
             'senderName' => $this->fromName,
             'senderEmail' => $this->fromAddress,
-            'behaviour' => 'campaign',
-            'behavior' => 'campaign',
             'listId' => '',
             'targetgroupId' => '',
-            'html' => $message->render()
+            'text' => '',
+            'html' => $message->render(),
+            'templateId' => '',
+            'advanced' => [
+                'behavior' => 'campaign'
+            ]
         ]);
 
         // return email id
         return $response['result'];
     }
 
+    /**
+     * Activate email using mailingwork API
+     *
+     * @param $id
+     */
     private function activateEmail($id){
-        $response = $this->sendRequest('activateemail', ['emailId' => $id]);
+        $this->sendRequest('activateemail', ['emailId' => $id]);
     }
 
-    private function sendEmail(){
-
+    /**
+     * Send email using mailingwork API
+     *
+     * @param $id
+     * @param $recipient
+     */
+    private function sendEmail($id, $recipient){
+        $response = $this->sendRequest('sendemailbyidandrecipientasync', [
+            'emailId' => $id,
+            'fields' => [1 => $recipient]
+        ]);
     }
 
     /**
