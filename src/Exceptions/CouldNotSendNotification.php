@@ -2,6 +2,8 @@
 
 namespace NotificationChannels\Mailingwork\Exceptions;
 
+use GuzzleHttp\Exception\ClientException;
+
 class CouldNotSendNotification extends \Exception
 {
     /**
