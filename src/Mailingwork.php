@@ -2,6 +2,7 @@
 
 namespace NotificationChannels\Mailingwork;
 
+use Illuminate\Support\Str;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
 use NotificationChannels\Mailingwork\Exceptions\CouldNotSendNotification;
@@ -36,11 +37,22 @@ class Mailingwork
     protected $fromAddress = null;
 
     /**
-     * Mailingwork API baseurl
+     * Mailingwork API host
      * @var string
      */
-    protected $apiBaseUrl = "https://login.mailingwork.de/webservice/webservice/json/";
+    protected $apiHost = "login.mailingwork.de";
 
+    /**
+     * Mailingwork API path
+     * @var string
+     */
+    protected $apiPath = "webservice/webservice/json";
+
+    /**
+     * Mailingwork API protocol
+     * @var string
+     */
+    protected $apiProtocol = "https";
 
     /**
      * Mailingwork constructor.
@@ -53,6 +65,7 @@ class Mailingwork
         $this->password = $config['password'];
         $this->fromName = $config['from']['name'];
         $this->fromAddress = $config['from']['address'];
+        $this->apiProtocol = $config['ssl'] ? "https" : "http";
 
         $this->http = $httpClient;
     }
@@ -70,30 +83,67 @@ class Mailingwork
 
     public function sendMessage(MailingworkMessage $message)
     {
-        $this->createEmail($message);
-        dd('x');
+        $id = $this->createEmail($message);
+        $this->activateEmail($id);
         return $this->sendRequest('sendMessage', $params);
     }
 
     private function createEmail(MailingworkMessage $message){
-        $m = view($message->view[0], $message->viewData)->render());
-        dump($m);
-
         $response = $this->sendRequest('createemail', [
-            'subject' => $message->subject,
+            'subject' => $this->buildSubject($message),
             'senderName' => $this->fromName,
             'senderEmail' => $this->fromAddress,
-            'html' => $message->to
+            'behaviour' => 'campaign',
+            'behavior' => 'campaign',
+            'listId' => '',
+            'targetgroupId' => '',
+            'html' => $message->render()
         ]);
-        dd($response);
+
+        // return email id
+        return $response['result'];
     }
 
-    private function activateEmail(){
-
+    private function activateEmail($id){
+        $response = $this->sendRequest('activateemail', ['emailId' => $id]);
     }
 
     private function sendEmail(){
 
+    }
+
+    /**
+     * Set the subject for the message.
+     *
+     * @param  \Illuminate\Mail\Message  $message
+     * @return $this
+     */
+    protected function buildSubject($message)
+    {
+        if (!$message->subject) {
+            $message->subject(Str::title(Str::snake(class_basename($message), ' ')));
+        }
+
+        return $message->subject;
+    }
+
+    /**
+     * Create API baseurl based on protocol, host, and api path
+     *
+     * @return string
+     */
+    protected function getBaseUrl(){
+        return sprintf("%s://%s/%s", $this->apiProtocol, $this->apiHost, $this->apiPath);
+    }
+
+    /**
+     * Create endpoint url
+     *
+     * @param string $endpoint
+     * @return string
+     */
+    protected function getEndpointUrl(string $endpoint){
+        return sprintf("%s/%s", $this->getBaseUrl(), $endpoint);
     }
 
     /**
@@ -112,16 +162,24 @@ class Mailingwork
             throw CouldNotSendNotification::credentialsNotProvided('You must provide mailingwork credentials to make any API requests.');
         }
 
-        $endPointUrl = $this->apiBaseUrl.$endpoint;
+        // append credentials
+        $params['username'] = $this->username;
+        $params['password'] = $this->password;
 
         try {
-            return $this->httpClient()->post($endPointUrl, [
-                'form_params' => $params,
+            $response = $this->httpClient()->post($this->getEndpointUrl($endpoint), [
+                'form_params' => $params
             ]);
+            $data = json_decode($response->getBody(), true);
+
+            if($data['error'] !== 0){
+                throw CouldNotSendNotification::mailingworkRespondedWithAnMessage($data['message']);
+            }
+            return $data;
         } catch (ClientException $exception) {
             throw CouldNotSendNotification::mailingworkRespondedWithAnError($exception);
         } catch (\Exception $exception) {
-            throw CouldNotSendNotification::couldNotCommunicateWithTelegram();
+            throw CouldNotSendNotification::couldNotCommunicateWithMailingwork();
         }
     }
 }
