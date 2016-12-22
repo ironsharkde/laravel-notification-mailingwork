@@ -25,6 +25,16 @@ class CouldNotSendNotification extends \Exception
     }
 
     /**
+     * Thrown when there's a API returns an error message.
+     *
+     * @param string $message
+     * @return static
+     */
+    public static function mailingworkRespondedWithAnMessage(string $message){
+        return new static($message);
+    }
+
+    /**
      * Thrown when credentials are missing.
      *
      * @param string $message
