@@ -67,7 +67,7 @@ MAILINGWORK_FROM_NAME=Postmaster
 
 ## Usage
 
-You can now use the channel in your `via() method inside the Notification class.
+You can now use the channel in your `via()` method inside the Notification class.
 
 ```php
 use Illuminate\Notifications\Notification;
