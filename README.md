@@ -101,8 +101,6 @@ class InvoicePaid extends Notification
 - `action($text, $url)`: (string) Configure the "call to action" button.
 - `level($level)`: (string) Set the "level" of the notification (success, error, etc.).
 
-Set the "level" of the notification (success, error, etc.).
-
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
