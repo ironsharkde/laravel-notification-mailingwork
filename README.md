@@ -2,7 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
-This package makes it easy to send notifications using [Mailingwork](link to service) with Laravel 5.3.
+This package makes it easy to send notifications using [Mailingwork](https://mailingwork.de) with Laravel 5.3.
 
 This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
 
