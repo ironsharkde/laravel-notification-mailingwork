@@ -67,7 +67,30 @@ MAILINGWORK_FROM_NAME=Postmaster
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+You can now use the channel in your `via() method inside the Notification class.
+
+```php
+use Illuminate\Notifications\Notification;
+use NotificationChannels\Mailingwork\MailingworkChannel;
+use NotificationChannels\Mailingwork\MailingworkMessage;
+
+class InvoicePaid extends Notification
+{
+    public function via($notifiable)
+    {
+        return [MailingworkChannel::class];
+    }
+
+    public function toMailingwork($notifiable)
+    {
+        return (new MailingworkMessage)
+            ->to($notifiable->email)
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', 'https://laravel.com')
+            ->line('Thank you for using our application!');
+    }
+}
+```
 
 ### Available methods
 
