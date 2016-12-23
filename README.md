@@ -94,7 +94,14 @@ class InvoicePaid extends Notification
 
 ### Available methods
 
-A list of all available options
+- `to($address)`: (string) Recipient's email address.
+- `subject($subject)`: (string) Set the subject of the notification.
+- `greeting($greeting)`: (string) Set the greeting of the notification.
+- `line($address)`: (string) Add a line of text to the notification.
+- `action($text, $url)`: (string) Configure the "call to action" button.
+- `level($level)`: (string) Set the "level" of the notification (success, error, etc.).
+
+Set the "level" of the notification (success, error, etc.).
 
 ## Changelog
 
