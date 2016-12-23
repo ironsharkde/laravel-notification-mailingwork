@@ -10,7 +10,7 @@ This is where your description should go. Add a little code example so build can
 ## Contents
 
 - [Installation](#installation)
-	- [Setting up the Mailingwork service](#setting-up-the-Mailingwork-service)
+	- [Setting up the Mailingwork service](#setting-up-the-mailingwork-service)
 - [Usage](#usage)
 	- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
@@ -92,7 +92,7 @@ class InvoicePaid extends Notification
 }
 ```
 
-### Available methods
+### Available Message methods
 
 - `to($address)`: (string) Recipient's email address.
 - `subject($subject)`: (string) Set the subject of the notification.
