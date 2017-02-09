@@ -107,8 +107,8 @@ class Mailingwork
     private function createEmail(MailingworkMessage $message){
         $response = $this->sendRequest('createemail', [
             'subject' => $this->buildSubject($message),
-            'senderName' => $this->fromName,
-            'senderEmail' => $this->fromAddress,
+            'senderName' => $message->from[1] ?? $this->fromName,
+            'senderEmail' => $message->from[0] ?? $this->fromAddress,
             'listId' => '',
             'targetgroupId' => '',
             'text' => '',
