@@ -89,6 +89,12 @@ class Mailingwork
      */
     public function sendMessage(MailingworkMessage $message)
     {
+        // override global credentials
+        if($message->username && $message->password){
+            $this->username = $message->username;
+            $this->password = $message->password;
+        }
+
         // throw error if no recipient provided
         if(!$message->to)
             throw CouldNotSendNotification::recipientNotProvided();
