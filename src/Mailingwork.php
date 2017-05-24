@@ -55,12 +55,19 @@ class Mailingwork
     protected $apiProtocol = "https";
 
     /**
+     * Main configs
+     * @var array
+     */
+    protected $config = [];
+
+    /**
      * Mailingwork constructor.
      * @param array $config
      * @param HttpClient|null $httpClient
      */
     public function __construct(array $config, HttpClient $httpClient = null)
     {
+        $this->config = $config;
         $this->username = $config['username'];
         $this->password = $config['password'];
         $this->fromName = $config['from']['name'];
@@ -89,11 +96,7 @@ class Mailingwork
      */
     public function sendMessage(MailingworkMessage $message)
     {
-        // override global credentials
-        if($message->username && $message->password){
-            $this->username = $message->username;
-            $this->password = $message->password;
-        }
+        $this->applyCustomCredentials($message);
 
         // throw error if no recipient provided
         if(!$message->to)
@@ -102,6 +105,18 @@ class Mailingwork
         $id = $this->createEmail($message);
         $this->activateEmail($id);
         return $this->sendEmail($id, $message->to);
+    }
+
+    private function applyCustomCredentials(MailingworkMessage $message){
+        // override global credentials
+        if($message->username && $message->password){
+            $this->username = $message->username;
+            $this->password = $message->password;
+        } else {
+            // since this class is instanciated only once, we need to reset configs to default values
+            $this->username = $this->config['username'];
+            $this->password = $this->config['password'];
+        }
     }
 
     /**
