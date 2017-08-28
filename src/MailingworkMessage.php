@@ -10,18 +10,25 @@ use Illuminate\Notifications\Messages\MailMessage;
 class MailingworkMessage extends MailMessage
 {
     /**
-     * Mailingwork API - username, system credentils would be ignored
+     * Mailingwork API - username, system credentials would be ignored
      *
      * @var null
      */
     public $username = null;
 
     /**
-     * Mailingwork API - password, system credentils would be ignored
+     * Mailingwork API - password, system credentials would be ignored
      *
      * @var null
      */
     public $password = null;
+
+    /**
+     * Mailingwork API - folder id
+     *
+     * @var null
+     */
+    public $folder = null;
 
     /**
      * The view for the message.

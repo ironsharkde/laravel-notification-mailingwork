@@ -126,7 +126,7 @@ class Mailingwork
      * @return mixed
      */
     private function createEmail(MailingworkMessage $message){
-        $response = $this->sendRequest('createemail', [
+        $data = [
             'subject' => $this->buildSubject($message),
             'senderName' => $message->from[1] ?? $this->fromName,
             'senderEmail' => $message->from[0] ?? $this->fromAddress,
@@ -138,7 +138,14 @@ class Mailingwork
             'advanced' => [
                 'behavior' => 'campaign'
             ]
-        ]);
+        ];
+
+        // set custom message folder
+        if($message->folder){
+            $data['advanced']['folderId'] = $message->folder;
+        }
+
+        $response = $this->sendRequest('createemail', $data);
 
         // return email id
         return $response['result'];
