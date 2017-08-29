@@ -25,6 +25,12 @@ class Mailingwork
     protected $password = null;
 
     /**
+     * Mailingwork folder
+     * @var folder|null
+     */
+    protected $folder = null;
+
+    /**
      * Sender name
      * @var null
      */
@@ -70,6 +76,7 @@ class Mailingwork
         $this->config = $config;
         $this->username = $config['username'];
         $this->password = $config['password'];
+        $this->folder = $config['folder'];
         $this->fromName = $config['from']['name'];
         $this->fromAddress = $config['from']['address'];
         $this->apiProtocol = $config['ssl'] ? "https" : "http";
@@ -97,6 +104,7 @@ class Mailingwork
     public function sendMessage(MailingworkMessage $message)
     {
         $this->applyCustomCredentials($message);
+        $this->applyCustomFolder($message);
 
         // throw error if no recipient provided
         if(!$message->to)
@@ -107,15 +115,35 @@ class Mailingwork
         return $this->sendEmail($id, $message->to);
     }
 
+    /**
+     * Apply custom credentials
+     *
+     * @param MailingworkMessage $message
+     */
     private function applyCustomCredentials(MailingworkMessage $message){
         // override global credentials
         if($message->username && $message->password){
             $this->username = $message->username;
             $this->password = $message->password;
         } else {
-            // since this class is instanciated only once, we need to reset configs to default values
+            // since this class is instantiated only once, we need to reset configs to default values
             $this->username = $this->config['username'];
             $this->password = $this->config['password'];
+        }
+    }
+
+    /**
+     * Apply custom folder
+     *
+     * @param MailingworkMessage $message
+     */
+    private function applyCustomFolder(MailingworkMessage $message){
+        // override global folder
+        if($message->folder){
+            $this->folder = $message->folder;
+        } else {
+            // since this class is instantiated only once, we need to reset configs to default values
+            $this->folder = $this->config['folder'];
         }
     }
 
@@ -141,8 +169,8 @@ class Mailingwork
         ];
 
         // set custom message folder
-        if($message->folder){
-            $data['advanced']['folderId'] = $message->folder;
+        if($this->folder){
+            $data['advanced']['folderId'] = $this->folder;
         }
 
         $response = $this->sendRequest('createemail', $data);
